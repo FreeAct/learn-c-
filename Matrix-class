@@ -1,0 +1,46 @@
+#pragma once
+#include<iostream>
+class Matrix
+{
+public:
+	Matrix(int row, int col) :_row(row), _col(col) {
+		_pmat = new double[row * col];
+	}
+	void print_Matrix() {
+		for (int i = 0; i < _row * _col; ++i) {
+			std::cout << _pmat[i] << "\t";
+			if ((i+1) % _col == 0)
+				std::cout << std::endl;
+		}
+	}
+	void Ini_Matrix() {
+		std::cout << "put the number";
+		for (int i = 0; i < _row * _col;++i) {
+			std::cin>>_pmat[i];
+		}
+	}
+	inline double&
+		operator()(int i, int j) {
+		return _pmat[i * j - 1];
+	}
+	~Matrix() {
+		delete[]_pmat;
+	}
+
+private:
+	int _row, _col;
+	double* _pmat;
+};
+
+#include<iostream>
+#include"Matrix.h"
+using namespace std;
+
+int main() {
+	Matrix A(3, 4);
+	A.Ini_Matrix();
+	A.print_Matrix();
+	A(1, 2) = 123;
+	A.print_Matrix();
+	return 0;
+}
